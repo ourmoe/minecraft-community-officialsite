@@ -1,14 +1,14 @@
 #-------------------------------
 # General Site Settings
 
-title: Kross
+title: 星火计划丨Spark Project
 logo: 
-author: themefisher
+author: Yaasasi
 description: this is meta description
-email: steve.fruits@email.com
-phone: +880 2544 658 256
-address: 125/A, CA Commercial Area, California, USA
-copyright: Copyright &copy; 2020 Designed by [Themefisher](https://themefisher.com) & Developed by [Getjekyllthemes](https://getjekyllthemes.com)
+email: YuXi@yaasasi.cn
+phone: 
+address: 
+copyright: Copyright &copy; @ Yaasasi 2009-2021
 
 menu:
 - {name: About, link: '/about'}
