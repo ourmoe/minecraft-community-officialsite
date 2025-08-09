@@ -13,6 +13,65 @@
 
     <!-- Template CSS -->
     <link rel="stylesheet" href="assets/css/style-starter.css">
+
+<style>
+  :root{
+    --brand:rgb(145, 63, 229);
+    --brand-weak: color-mix(in srgb, var(--brand) 25%, transparent);
+    --ink: #1f2937;
+    --ink-weak:#6b7280;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --ink:#e5e7eb;
+      --ink-weak:#9ca3af;
+    }
+  }
+  .agree-wrap{
+    display:inline-flex; align-items:center; gap:12px; justify-content:center;
+    margin-top:1rem; user-select:none;
+  }
+  .agree-input{
+    position:absolute; inline-size:1px; block-size:1px;
+    margin:-1px; padding:0; border:0; clip:rect(0 0 0 0);
+    overflow:hidden; white-space:nowrap;
+  }
+  .agree-label{
+    display:inline-flex; align-items:center; gap:12px; cursor:pointer;
+    color:var(--ink);
+    font-weight:600;
+  }
+  .agree-box{
+    inline-size:22px; block-size:22px; border-radius:6px;
+    border:2px solid var(--brand);
+    background: color-mix(in srgb, var(--brand) 6%, transparent);
+    display:grid; place-items:center;
+    transition: background .18s ease, border-color .18s ease, transform .12s ease;
+  }
+  .agree-label:hover .agree-box{ border-color: color-mix(in srgb, var(--brand) 85%, black 15%); }
+  .agree-box::after{
+    content:"";
+    inline-size:12px; block-size:8px;
+    transform: scale(0.0) rotate(-8deg);
+    transition: transform .18s ease;
+    background: currentColor;
+    clip-path: polygon(10% 60%, 0 75%, 42% 100%, 100% 10%, 88% 0, 42% 74%);
+    color:white;
+  }
+  .agree-input:checked + .agree-label .agree-box{
+    background: var(--brand); color:#fff; transform: translateY(-0.5px);
+  }
+  .agree-input:checked + .agree-label .agree-box::after{ transform: scale(1) rotate(-2deg); }
+  .agree-input:focus-visible + .agree-label .agree-box{
+    outline: 3px solid var(--brand-weak);
+    outline-offset: 3px;
+  }
+  .disabled-link{
+    pointer-events:none !important;
+    opacity:.55 !important;
+    filter: grayscale(.1);
+  }
+</style>
 </head>
 
 <body>
@@ -105,9 +164,31 @@
             <h5 class="title-small mb-2">( *^-^)ρ(^0^* )</h5>
             <h3 class="title-big mb-4">填写素质审查问卷</h3>
             <p>恭喜，您已经走到这一步了，赶快填写我们的素质审查问卷吧！<br />您在填写前务必确定已完成阅读上述所有官方文件，我们会根据您的填写情况与获得的分值综合考量！ o(〃＾▽＾〃)o<br />您点击下一步，则视为您已阅读并接受《<a href="https://www.our.moe/docs/rules/losenone_community_management_regulations" target="_blank">洛书南社区管理条例</a>》与《<a href="https://www.our.moe/docs/treaty/community_communication_covenant" target="_blank">公共社区交流公约</a>》的约束。</p>
-            <div class="mt-sm-5 mt-4">
-            	<a class="btn btn-primary btn-style mr-2" href="https://losenone.feishu.cn/share/base/form/shrcn2P9lMrHtC0Kp3xgRjhdqme"> 下一步 </a>
+            <br />
+            <div class="agree-wrap" style="margin-bottom: 1rem;">
+                <input type="checkbox" id="readCheckbox" class="agree-input" />
+                <label for="readCheckbox" class="agree-label">
+                    <span class="agree-box" aria-hidden="true"></span>
+                    我已阅读并接受上述文件
+                </label>
             </div>
+            <div style="text-align:center;">
+                <a class="btn btn-primary btn-style mr-2 disabled-link" id="nextBtn" href="https://losenone.feishu.cn/share/base/form/shrcn2P9lMrHtC0Kp3xgRjhdqme" aria-disabled="true" tabindex="-1">
+                    下一步
+                </a>
+            </div>
+            <script>
+                const checkbox = document.getElementById('readCheckbox');
+                const nextBtn  = document.getElementById('nextBtn');
+                function syncNextState(){
+                    const on = checkbox.checked;
+                    nextBtn.classList.toggle('disabled-link', !on);
+                    nextBtn.setAttribute('aria-disabled', String(!on));
+                    nextBtn.tabIndex = on ? 0 : -1;
+                }
+                checkbox?.addEventListener('change', syncNextState);
+                syncNextState();
+            </script>
         </div>
     </div>
 
@@ -116,7 +197,7 @@
             <div class="footer-content">
                 <div class="row">
                     <div class="col-lg-8 footer-left">
-                        <p class="m-0">Copyright &copy; Ourmoe Creativity Team 2018-2024</p>
+                        <p class="m-0">Copyright &copy; 2025 Ourmoe Creativity Team & Losenone Team</p>
                     </div>
                     <div class="col-lg-4 footer-right text-lg-right text-center mt-lg-0 mt-3">
                         <ul class="social m- p-0">
